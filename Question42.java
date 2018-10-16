@@ -71,7 +71,7 @@ class CurrentAccount extends Account
 	public void withdraw (double amount)
 	{	
 		// withdraw allowed if condition is met
-		limitReached = getBalance () - amount >= overdraftLimit;
+		limitReached = Math.abs (getBalance () - amount) >= overdraftLimit;
 		if (!limitReached)
 		{
 			super.withdraw (amount);
