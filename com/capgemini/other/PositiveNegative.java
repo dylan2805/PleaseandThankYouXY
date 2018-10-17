@@ -1,4 +1,4 @@
-package com.capgemini.solutions;
+package com.capgemini.other;
 
 import com.capgemini.utils.Keyboard;
 import com.capgemini.utils.Logging;

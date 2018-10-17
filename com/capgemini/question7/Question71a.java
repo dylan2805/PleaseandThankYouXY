@@ -1,4 +1,4 @@
-package com.capgemini.solutions;
+package com.capgemini.question7;
 
 import java.util.Arrays;
 

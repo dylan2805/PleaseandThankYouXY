@@ -1,4 +1,4 @@
-package com.capgemini.solutions;
+package com.capgemini.question3;
 
 import java.time.LocalDate;
 
@@ -32,7 +32,7 @@ public class Question35
 		}
 		catch (NumberFormatException nfe)
 		{
-			// If converstion fails report error and request input again
+			// If conversion fails report error and request input again
 			Logging.LOG.error ("*** Invalid warranty format ***");
 			return readWarranty (prompt);
 		}

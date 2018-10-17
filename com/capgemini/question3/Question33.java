@@ -1,4 +1,4 @@
-package com.capgemini.solutions;
+package com.capgemini.question3;
 
 import java.time.LocalDate;
 import java.time.Period;
