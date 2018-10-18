@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.capgemini.utils.Keyboard;
+import com.capgemini.utils.Logging;
 
 public class HashMapExercise
 {
@@ -21,6 +22,6 @@ public class HashMapExercise
 		
 		for (Map.Entry <Integer, String> entry : map.entrySet ())
 		
-			System.out.println ("Employee " + entry.getKey () + " name is " + entry.getValue ());
+			Logging.LOG.info ("Employee " + entry.getKey () + " name is " + entry.getValue ());
     }
 }
