@@ -1,4 +1,4 @@
-package com.capgemini.solutions;
+package com.capgemini.question3;
 
 import java.util.LinkedHashSet;
 
@@ -21,6 +21,7 @@ public class Question31
 		
 		while (choice != 0)
 		{
+			Logging.LOG.info ("Current string : " + string);
 			choice = Keyboard.menuInput ("Select an option", menu); // User menu to ask user choice
 			
 			switch (choice)
@@ -39,12 +40,6 @@ public class Question31
 				
 				case 4:
 					changeOdd ();
-			}
-			
-			if (choice != 0)
-			{
-				Logging.LOG.info (string);
-				Logging.LOG.info ("");
 			}
 		}
 	}

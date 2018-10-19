@@ -2,6 +2,7 @@ package com.cg.eis.service;
 
 import com.capgemini.utils.Logging;
 import com.cg.eis.bean.Employee;
+import com.cg.eis.exception.EmployeeException;
 
 interface EmployeeService
 {
@@ -24,8 +25,16 @@ public class EmployeeServiceClass implements EmployeeService
     {
 		employee.setId (id);
 		employee.setName (name);
-		employee.setSalary (salary);
 		employee.setDesignation (designation);
+		
+		try
+        {
+	        employee.setSalary (salary);
+        }
+        catch (EmployeeException e)
+        {
+	        Logging.LOG.error (e.getMessage ());
+        }
     }
 
 	@Override

@@ -1,8 +1,8 @@
-package com.capgemini.solutions;
+package com.capgemini.question2;
 
-import com.capgemini.utils.Keyboard;
+import com.cg.eis.exception.BlankNameException;
 
-class Person
+public class Person
 {
 	// Attributes
 	private String firstName;
@@ -12,8 +12,11 @@ class Person
 	private double weight;
 
 	// Constructor
-	public Person (String firstName, String lastName, char gender, int age, double weight)
+	public Person (String firstName, String lastName, char gender, int age, double weight) throws BlankNameException
 	{
+		if (firstName.equals ("")) throw new BlankNameException ("*** First name cannot be blank ***");
+		if (lastName.equals ("")) throw new BlankNameException ("*** Last name cannot be blank ***");
+		
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.gender = gender;
@@ -35,22 +38,5 @@ class Person
 		  .append ("Weight     : ").append (weight);
 
 		return sb.toString ();
-	}
-}
-
-public class Question21
-{
-	public static void main (String [] args)
-	{
-		// Read user inputs
-		String firstName = Keyboard.readString ("First name : ");
-		String lastName = Keyboard.readString ("Last name : ");
-		char gender = Character.toUpperCase (Keyboard.readChar ("Gender : "));
-		int age = Keyboard.readInt ("Age : ");
-		double weight = Keyboard.readDouble ("Weight : ");
-
-		// print result using toString
-		System.out.println ();
-		System.out.println (new Person (firstName, lastName, gender, age, weight));
 	}
 }
