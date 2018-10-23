@@ -1,0 +1,37 @@
+public class Solution {
+
+    // Complete the repeatedString function below.
+    static long repeatedString(String s, long n) {
+        // length of string in long => 64 bits
+        long strlength = s.length();
+        // number of times string repeats as a whole entity
+        long wholerepeatStrings = n/strlength;
+        //counting the number of a's in one string
+        long noastr = 0;
+        char [] charstr = s.toCharArray();
+        for(Character a: charstr) 
+            if(a == 'a')
+                noastr++;
+        // getting total number of a's in whole repeated strings
+        long totalarepeatstr = noastr * wholerepeatStrings;
+
+        // finding total length of characters in whole repeated strings
+        long lenrepeatstr = wholerepeatStrings * s.length();
+        // getting remainder of substring in incomplete string
+        int lenremainstr = (int)(n - lenrepeatstr);
+        long remasubstring = 0;
+        if(lenremainstr == 0) {
+            remasubstring =0;
+        } else {
+        // getting the remaining substring of the string
+        String remainS = s.substring(0,lenremainstr);
+        // calculating number of a's in substring
+        char [] chars = remainS.toCharArray();
+        for(Character a : chars)
+            if(a == 'a')
+                remasubstring++;
+        }
+        long totala = totalarepeatstr + remasubstring;
+        
+        return totala;
+    }
