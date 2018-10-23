@@ -76,7 +76,7 @@ public class RepositoryTest
 	public void findByMobile_98765432 () throws InvalidInputException, AccountNotFoundException
 	{
 		Customer customer = new Customer ("Name", "98765432", 1000);
-		assertEquals (customer, repository.save (customer));
+		repository.save (customer);
 		assertEquals (customer, repository.findByMobile ("98765432"));
 	}
 	
