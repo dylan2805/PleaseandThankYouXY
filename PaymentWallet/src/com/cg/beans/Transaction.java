@@ -5,17 +5,19 @@ import java.util.Date;
 public class Transaction
 {
 	private int transactionId;
-	private int otherPartyId;
+	private String otherPartyId;
 	private double amount;
 	private String description;
+	private double balance;
 	private Date date;
 	
-	public Transaction (int transactionId, int otherPartyId, double amount, String description, Date date)
+	public Transaction (int transactionId, String otherPartyId, double amount, String description, double balance, Date date)
     {
 	    this.transactionId = transactionId;
 	    this.otherPartyId = otherPartyId;
 	    this.amount = amount;
 	    this.description = description;
+	    this.balance = balance;
 	    this.date = date;
     }
 
@@ -24,7 +26,7 @@ public class Transaction
 		return transactionId;
 	}
 
-	public int getOtherPartyId ()
+	public String getOtherPartyId ()
 	{
 		return otherPartyId;
 	}
@@ -39,6 +41,16 @@ public class Transaction
 		return description;
 	}
 
+	public double getBalance ()
+    {
+	    return balance;
+    }
+	
+	public Date getDate ()
+    {
+	    return date;
+    }
+	
 	@Override
     public String toString ()
     {
