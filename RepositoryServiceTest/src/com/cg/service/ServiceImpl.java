@@ -11,55 +11,60 @@ public class ServiceImpl implements Service {
 	// always Make reference to the interface since its a contract,
 	// methods are being called from here
 	private Repository r;
-	
+
 	public ServiceImpl() {
 		r = new RepositoryImpl();
 	}
 
 	// create account method 
- public Customer createAccount (String name, String mobile, double balance)
- throws InvalidInputException
- {	
-	 Customer c = new Customer(name,mobile, balance);
-	if(!mobile.matches(".*\\d+.*")){
-		throw new InvalidInputException("Please enter only numbers");
-	}
-	 Customer c1 = r.save(c); 
-	 return c1;
- }
- // getbalance for the respective customer
- public Customer getBalance(String mobile) 
-		 throws AccountNotFoundException, InvalidInputException {
-
-	 if(mobile == null){
-		 throw new AccountNotFoundException("Account not found");
-	 }
-
-	 if(!mobile.matches(".*\\d+.*")){
+	public Customer createAccount (String name, String mobile, double balance)
+			throws InvalidInputException
+	{	
+		Customer c = new Customer(name,mobile, balance);
+		if(!mobile.matches(".*\\d+.*")){
 			throw new InvalidInputException("Please enter only numbers");
 		}
-	 return r.findbymobile(mobile);
-	  
- }
- // Fundtransfer from customer 1 to Customer 2
- // return customer object (frommobile)
-/* public Customer FundTransfer
- (String fromMobile, String toMobile, double amount) 
-		 throws AccountNotFoundException {
-	 // get balance of customer 1 - based on mobile
-	 // get balance of customer 2 - based on mobile
-	 // set balance of customer 1 - deduct amount
-	 // set balance of customer 2 - add amount
-	 // call balance of customer 1 again.
-	 // get the customer objects based on the mobile number
-	 Customer fromTransfer = r.findbymobile(toMobile);
-	 Customer toTransfer = r.findbymobile(fromMobile);
-	 // get the wallet from the customer 
-	 Wallet fromTransferWallet = fromTransfer.getWallet();
-	 double fromTransferBalance = fromTransferWallet.getBalance();
-	 
-	 
-	 
-	 
- }*/
+		Customer c1 = r.save(c); 
+		return c1;
+	}
+	// getbalance for the respective customer
+	public Customer getBalance(String mobile) 
+			throws AccountNotFoundException, InvalidInputException {
+
+		if(mobile == null){
+			throw new AccountNotFoundException("Account not found");
+		}
+
+		if(!mobile.matches(".*\\d+.*")){
+			throw new InvalidInputException("Please enter only numbers");
+		}
+		return r.findbymobile(mobile);
+
+	}
+	// Fundtransfer from customer 1 to Customer 2
+	// return customer object (frommobile)
+	public Customer FundTransfer
+	(String fromMobile, String toMobile, double amount) 
+			throws AccountNotFoundException {
+		// get the customer objects based on the mobile number
+		Customer fromTransfer = r.findbymobile(fromMobile);
+		Customer toTransfer = r.findbymobile(toMobile);
+		// get the wallet from the customer who is transferring
+		Wallet fromTransferWallet = fromTransfer.getWallet();
+		// set the balance for the customer who is transferring amount
+		fromTransferWallet.setBalance(fromTransferWallet.getBalance()-amount);
+		return fromTransfer;
+	}
+	// add balance to the customer deposit
+	public Customer deposit (String mobile, double amount) 
+			throws AccountNotFoundException 
+	{
+		// get the customer objects based on the mobile number
+		Customer customerDepositing = r.findbymobile(mobile);
+		// get the wallet from the customer who is transferring
+		Wallet customerDepositW = customerDepositing.getWallet();
+		// set the balance for the customer who is transferring amount
+		customerDepositW.setBalance(customerDepositW.getBalance()+amount);
+		return customerDepositing;
+	}
 }

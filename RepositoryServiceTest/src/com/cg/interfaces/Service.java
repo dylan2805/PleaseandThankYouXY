@@ -15,5 +15,8 @@ public interface Service {
 	 public Customer FundTransfer
 	 (String fromMobile, String toMobile, double amount)
              throws AccountNotFoundException;
+	 
+	 public Customer deposit (String mobile, double amount)
+	 throws AccountNotFoundException;
 
 }
