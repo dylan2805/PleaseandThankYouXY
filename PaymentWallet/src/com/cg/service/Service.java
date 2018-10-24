@@ -1,5 +1,6 @@
 package com.cg.service;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.cg.beans.Customer;
 import com.cg.beans.Transaction;
@@ -59,6 +60,12 @@ public class Service implements ServiceInterface
 		Customer customer= repository.findByMobile (mobile);
 		customer.getWallet ().setBalance (customer.getWallet ().getBalance () + amount);
 		
+		Date date = new Date ();
+		Transaction transaction = new Transaction (((int) date.getTime () / 1000), mobile, amount, "Deposit",
+													   customer.getWallet ().getBalance (), date);
+		
+		getTransactions (mobile).add (transaction);
+		
 		return customer;
 	}
 	
@@ -78,6 +85,15 @@ public class Service implements ServiceInterface
 		
 		fromWallet.setBalance (fromWallet.getBalance () - amount);
 		toWallet.setBalance (toWallet.getBalance () + amount);
+		
+		Date date = new Date ();
+		Transaction fromTransaction = new Transaction (((int) date.getTime () / 1000), to, amount, "Transfer",
+													   fromWallet.getBalance (), date);
+		Transaction toTransaction = new Transaction (((int) date.getTime () / 1000), from, amount, "Transfer",
+													 toWallet.getBalance (), date);
+		
+		getTransactions (from).add (fromTransaction);
+		getTransactions (to).add (toTransaction);
 		
 		return fromCustomer;
 	}
