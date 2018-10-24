@@ -26,9 +26,4 @@ public class Wallet
     {
 	    return transactions;
     }
-	
-	public void addTransaction (Transaction transaction)
-	{
-		this.transactions.add (transaction);
-	}
 }

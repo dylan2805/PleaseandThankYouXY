@@ -141,34 +141,36 @@ public class Keyboard
 	private static enum ERROR
 	{
 		CHAR, INTEGER, FLOAT, DOUBLE, DATE_FORMAT, DATE, OPTION;
-
+		
 		public String toString ()	// Returns string of error message based on enum
 		{
+			String error = "";
+			
 			switch (this)
 			{
 				case CHAR:
-					return "*** Please enter a char ***";
+					error = "Please enter a char";
 
 				case INTEGER:
-					return "*** Please enter an integer ***";
+					error = "Please enter an integer";
 
 				case FLOAT:
-					return "*** Please enter a float ***";
+					error = "Please enter a float";
 
 				case DOUBLE:
-					return "*** Please enter a double ***";
+					error = "Please enter a double";
 
 				case DATE_FORMAT:
-					return "*** Invalid date format ***";
+					error = "Invalid date format";
 
 				case DATE:
-					return "*** Invalid date ***";
+					error = "Invalid date";
 
 				case OPTION:
-					return "*** Invalid option ***";
+					error = "Invalid option";
 			}
 
-			return "";
+			return new StringBuilder ("*** ").append (error).append (" ***").toString ();
 		};
 	}
 }

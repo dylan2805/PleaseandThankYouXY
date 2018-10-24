@@ -2,7 +2,8 @@ package com.cg.testing;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+import java.util.HashMap;
+
 import org.junit.Test;
 
 import com.cg.beans.Customer;
@@ -14,11 +15,10 @@ public class RepositoryTest
 {
 	private Repository repository;
 	
-	@Before
-	public void init ()
-	{
-		repository = new Repository ();
-	}
+	public RepositoryTest ()
+    {
+	    repository = new Repository (new HashMap <String, Customer> ());
+    }
 	
 	// ------------------------------ Test Save ------------------------------
 	
@@ -73,21 +73,21 @@ public class RepositoryTest
 	// ------------------------------ Test findBy ------------------------------
 	
 	@Test
-	public void findByMobile_98765432 () throws InvalidInputException, AccountNotFoundException
+	public void findByMobile_98765432 () throws AccountNotFoundException, InvalidInputException
 	{
 		Customer customer = new Customer ("Name", "98765432", 1000);
-		assertEquals (customer, repository.save (customer));
+		repository.save (customer);
 		assertEquals (customer, repository.findByMobile ("98765432"));
 	}
 	
 	@Test (expected = AccountNotFoundException.class)
-	public void findByMobile_Name () throws InvalidInputException, AccountNotFoundException
+	public void findByMobile_Name () throws AccountNotFoundException, InvalidInputException
 	{
 		repository.findByMobile ("Name");
 	}
 	
 	@Test (expected = InvalidInputException.class)
-	public void findByMobile_null () throws InvalidInputException, AccountNotFoundException
+	public void findByMobile_null () throws AccountNotFoundException, InvalidInputException
 	{
 		repository.findByMobile (null);
 	}

@@ -2,23 +2,23 @@ package com.cg.testing;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
+import java.util.HashMap;
+
 import org.junit.Test;
 
 import com.cg.beans.Customer;
 import com.cg.exceptions.AccountNotFoundException;
 import com.cg.exceptions.InvalidInputException;
+import com.cg.repo.Repository;
 import com.cg.service.Service;
 
 public class ServiceTest
 {
 	private Service service;
 	
-	
-	@Before
-	public void init ()
+	public ServiceTest ()
 	{
-		service = new Service ();
+		service = new Service (new Repository (new HashMap <String, Customer> ()));
 	}
 
 	// ------------------------------ createAccount () ------------------------------
@@ -76,7 +76,7 @@ public class ServiceTest
 	// ------------------------------ getBalance () ------------------------------
 	
 	@Test
-	public void getBalance98765432 () throws AccountNotFoundException, InvalidInputException
+	public void getBalance_98765432 () throws AccountNotFoundException, InvalidInputException
 	{
 		Customer customer = new Customer ("Name", "98765432", 1000);
 		service.createAccount ("Name", "98765432", 1000);
@@ -85,14 +85,14 @@ public class ServiceTest
 	
 
 	@Test (expected = AccountNotFoundException.class)
-	public void getBalanceName () throws AccountNotFoundException, InvalidInputException
+	public void getBalance_Name () throws AccountNotFoundException, InvalidInputException
 	{
 		service.getBalance ("Name");
 	}
 	
 
 	@Test (expected = InvalidInputException.class)
-	public void getBalanceNull () throws AccountNotFoundException, InvalidInputException
+	public void getBalance_Null () throws AccountNotFoundException, InvalidInputException
 	{
 		service.getBalance (null);
 	}
