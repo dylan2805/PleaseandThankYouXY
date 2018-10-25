@@ -73,6 +73,7 @@ public class Service implements ServiceInterface
 																				 InvalidInputException
 	{
 		if (from == null || to == null) throw new InvalidInputException ("Mobile cannot be null");	
+		if (from.equals (to)) throw new InvalidInputException ("Cannot transfer fund to yourself");
 		if (!from.matches ("[0-9]+") || !to.matches ("[0-9]+")) throw new InvalidInputException ("Mobile should only contain numbers");
 		if (from.length () != 8 || to.length () != 8) throw new InvalidInputException ("Invalid mobile number");
 		
