@@ -28,7 +28,7 @@ public class Repository implements RepositoryInterface
 		if (customer == null) throw new InvalidInputException ("Invalid Customer");
 		
 		if (customer.getName () == null) throw new InvalidInputException ("Name cannot be null");
-		if (!customer.getName ().matches ("[a-zA-Z]+")) throw new InvalidInputException ("Name should only contain alphabets");	
+		if (!customer.getName ().matches ("[a-zA-Z ]+")) throw new InvalidInputException ("Name should only contain alphabets");	
 		
 		if (customer.getMobile () == null) throw new InvalidInputException ("Mobile cannot be null");	
 		if (!customer.getMobile ().matches ("[0-9]+")) throw new InvalidInputException ("Mobile should only contain numbers");

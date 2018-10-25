@@ -30,7 +30,7 @@ public class Service implements ServiceInterface
 	public Customer createAccount (String name, String mobile, double balance) throws InvalidInputException
 	{
 		if (name == null) throw new InvalidInputException ("Name cannot be null");
-		if (!name.matches ("[a-zA-Z]+")) throw new InvalidInputException ("Name should only contain alphabets");	
+		if (!name.matches ("[a-zA-Z ]+")) throw new InvalidInputException ("Name should only contain alphabets");	
 		
 		if (mobile == null) throw new InvalidInputException ("Mobile cannot be null");	
 		if (!mobile.matches ("[0-9]+")) throw new InvalidInputException ("Mobile should only contain numbers");
@@ -78,25 +78,33 @@ public class Service implements ServiceInterface
 		if (from.length () != 8 || to.length () != 8) throw new InvalidInputException ("Invalid mobile number");
 		
 		Customer fromCustomer = repository.findByMobile (from);
-		Wallet fromWallet = fromCustomer.getWallet ();
-		Wallet toWallet = repository.findByMobile (to).getWallet ();
+		Customer toCustomer = repository.findByMobile (to);
 		
-		if (amount < 0) throw new InvalidInputException ("Amount cannot be negative");
-		if (fromWallet.getBalance () < amount) throw new InsufficientBalanceException ("Insufficient balance");
-		
-		fromWallet.setBalance (fromWallet.getBalance () - amount);
-		toWallet.setBalance (toWallet.getBalance () + amount);
-		
-		Date date = new Date ();
-		Transaction fromTransaction = new Transaction (((int) date.getTime () / 1000), to, amount, "Transfer",
-													   fromWallet.getBalance (), date);
-		Transaction toTransaction = new Transaction (((int) date.getTime () / 1000), from, amount, "Transfer",
-													 toWallet.getBalance (), date);
-		
-		getTransactions (from).add (fromTransaction);
-		getTransactions (to).add (toTransaction);
-		
-		return fromCustomer;
+		synchronized (fromCustomer)
+        {
+			synchronized (toCustomer)
+			{
+				Wallet fromWallet = fromCustomer.getWallet ();
+				Wallet toWallet = toCustomer.getWallet ();
+				
+				if (amount < 0) throw new InvalidInputException ("Amount cannot be negative");
+				if (fromWallet.getBalance () < amount) throw new InsufficientBalanceException ("Insufficient balance");
+				
+				fromWallet.setBalance (fromWallet.getBalance () - amount);
+				toWallet.setBalance (toWallet.getBalance () + amount);
+				
+				Date date = new Date ();
+				Transaction fromTransaction = new Transaction (((int) date.getTime () / 1000), to, amount, "Transfer",
+															   fromWallet.getBalance (), date);
+				Transaction toTransaction = new Transaction (((int) date.getTime () / 1000), from, amount, "Transfer",
+															 toWallet.getBalance (), date);
+				
+				getTransactions (from).add (fromTransaction);
+				getTransactions (to).add (toTransaction);
+				
+				return fromCustomer;
+			}
+        }
 	}
 	
 	public ArrayList <Transaction> getTransactions (String mobile) throws AccountNotFoundException, InvalidInputException
