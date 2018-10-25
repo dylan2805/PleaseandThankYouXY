@@ -106,7 +106,7 @@ public class ServiceTest
 		service.createAccount ("Name", "98765432", 1000);
 		Customer customer = service.makeDeposit ("98765432", 1000);
 		
-		assertTrue (service.getBalance ("98765432").getWallet ().getBalance () == 2000);
+		assertTrue (customer.getWallet ().getBalance () == 2000);
 	}
 	
 	@Test (expected = InvalidInputException.class)
