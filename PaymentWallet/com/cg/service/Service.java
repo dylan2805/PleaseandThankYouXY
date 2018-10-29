@@ -57,7 +57,7 @@ public class Service implements ServiceInterface
 		customer.getWallet ().setBalance (customer.getWallet ().getBalance () + amount);
 		
 		Date date = new Date ();
-		Transaction transaction = new Transaction (((int) date.getTime () / 1000), mobile, amount, "Deposit",
+		Transaction transaction = new Transaction (((int) date.getTime () / 1000) + Integer.parseInt (mobile), mobile, amount, "Deposit",
 													   customer.getWallet ().getBalance (), date);
 		
 		getTransactions (mobile).add (transaction);
@@ -94,13 +94,13 @@ public class Service implements ServiceInterface
 				toWallet.setBalance (toWallet.getBalance () + amount);
 				
 				Date date = new Date ();
-				Transaction fromTransaction = new Transaction (((int) date.getTime () / 1000), to, amount, "Transfer",
+				Transaction fromTransaction = new Transaction (((int) date.getTime () / 1000) + Integer.parseInt (fromCustomer.getMobile ()), to, amount, "Transfer",
 															   fromWallet.getBalance (), date);
-				Transaction toTransaction = new Transaction (((int) date.getTime () / 1000), from, amount, "Transfer",
+				Transaction toTransaction = new Transaction (((int) date.getTime () / 1000) + Integer.parseInt (toCustomer.getMobile ()), from, amount, "Transfer",
 															 toWallet.getBalance (), date);
 				
-				getTransactions (from).add (fromTransaction);
-				getTransactions (to).add (toTransaction);
+				fromWallet.getTransactions ().add (fromTransaction);
+				toWallet.getTransactions ().add (toTransaction);
 				
 				repository.update (fromCustomer);
 				repository.update (toCustomer);

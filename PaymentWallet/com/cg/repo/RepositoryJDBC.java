@@ -124,13 +124,14 @@ public class RepositoryJDBC implements RepositoryInterface
 				{
 					Database.updateDate ("INSERT INTO transaction (id, participant, amount, description, balance, date, wallet_id) VALUES(" +
 										 transaction.getTransactionId () + ", " + transaction.getParticipant () + ", " +
-										 transaction.getAmount () + ", " + transaction.getDescription () + ", " +
-										 transaction.getBalance () + ", '?', " + walletID + ")", transaction.getDate ());
+										 transaction.getAmount () + ", '" + transaction.getDescription () + "', " +
+										 transaction.getBalance () + ", ?, " + walletID + ")", transaction.getDate ());
 				}
 			}
 		}
 		catch (SQLException e)
 		{
+			e.printStackTrace ();
 			throw new InvalidInputException ("Invalid input");
 		}
 		
