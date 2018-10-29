@@ -52,6 +52,8 @@ public class Service implements ServiceInterface
 		if (amount < 0) throw new InvalidInputException ("Amount cannot be negative");
 
 		Customer customer= repository.findByMobile (mobile);
+		System.out.println (customer.getWallet ().getBalance ());
+		
 		customer.getWallet ().setBalance (customer.getWallet ().getBalance () + amount);
 		
 		Date date = new Date ();
@@ -60,6 +62,8 @@ public class Service implements ServiceInterface
 		
 		getTransactions (mobile).add (transaction);
 		repository.update (customer);
+		
+		System.out.println (customer.getWallet ().getBalance ());
 		
 		return customer;
 	}

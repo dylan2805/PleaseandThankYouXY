@@ -2,8 +2,10 @@ package com.cg.testing;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.cg.beans.Customer;
@@ -11,7 +13,9 @@ import com.cg.exceptions.AccountNotFoundException;
 import com.cg.exceptions.InsufficientBalanceException;
 import com.cg.exceptions.InvalidInputException;
 import com.cg.repo.Repository;
+import com.cg.repo.RepositoryJDBC;
 import com.cg.service.Service;
+import com.cg.utils.Database;
 
 public class ServiceTest
 {
@@ -19,9 +23,17 @@ public class ServiceTest
 	
 	public ServiceTest ()
 	{
-		service = new Service (new Repository (new HashMap <String, Customer> ()));
+		service = new Service (new RepositoryJDBC ());
 	}
 
+	@Before
+	public void removeAll () throws SQLException
+	{
+		Database.update ("DELETE FROM customer");
+		Database.update ("DELETE FROM wallet");
+		Database.update ("DELETE FROM transaction");
+	}
+	
 	// ------------------------------ createAccount () ------------------------------
 	
 	@Test

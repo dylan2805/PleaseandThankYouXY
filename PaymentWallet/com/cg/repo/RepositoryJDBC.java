@@ -111,16 +111,16 @@ public class RepositoryJDBC implements RepositoryInterface
 		try
 		{
 			ResultSet resultSet = Database.query ("SELECT wallet_id FROM customer WHERE mobile = " + customer.getMobile ());
-			if (resultSet == null) throw new AccountNotFoundException ("Account with mobile " + customer.getMobile () + " not found");
+			if (!resultSet.next ()) throw new AccountNotFoundException ("Account with mobile " + customer.getMobile () + " not found");
 				
 			int walletID = resultSet.getInt (1);
-			Database.update ("UPDATE TABLE wallet SET balance = " + customer.getWallet ().getBalance () + " WHERE id = " + walletID);
+			Database.update ("UPDATE wallet SET balance = " + customer.getWallet ().getBalance () + " WHERE id = " + walletID);
 			
 			List <Transaction> transactions = customer.getWallet ().getTransactions ();
 			for (Transaction transaction : transactions)
 			{
 				resultSet = Database.query ("SELECT * FROM transaction WHERE id = " + transaction.getTransactionId ());
-				if (resultSet == null)
+				if (!resultSet.next ())
 				{
 					Database.updateDate ("INSERT INTO transaction (id, participant, amount, description, balance, date, wallet_id) VALUES(" +
 										 transaction.getTransactionId () + ", " + transaction.getParticipant () + ", " +
