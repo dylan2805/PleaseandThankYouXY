@@ -19,13 +19,18 @@ public class Wallet
 		return balance;
 	}
 
+	public List <Transaction> getTransactions ()
+	{
+		return transactions;
+	}
+
 	public void setBalance (double balance)
 	{
 		this.balance = balance;
 	}
-
-	public List <Transaction> getTransactions ()
+	
+	public void setTransactions (List <Transaction> transactions)
 	{
-		return transactions;
+		this.transactions = transactions;
 	}
 }

@@ -2,30 +2,40 @@ package com.cg.testing;
 
 import static org.junit.Assert.*;
 
-import java.util.HashMap;
+import java.sql.SQLException;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.cg.beans.Customer;
 import com.cg.exceptions.InvalidInputException;
 import com.cg.exceptions.AccountNotFoundException;
-import com.cg.repo.Repository;
+import com.cg.repo.RepositoryJDBC;
+import com.cg.utils.Database;
 
 public class RepositoryTest
 {
-	private Repository repository;
+	private RepositoryJDBC repository;
 	
 	public RepositoryTest ()
     {
-	    repository = new Repository (new HashMap <String, Customer> ());
+	    repository = new RepositoryJDBC ();
     }
+	
+	@Before
+	public void removeAll () throws SQLException
+	{
+		Database.update ("DELETE FROM customer");
+		Database.update ("DELETE FROM wallet");
+		Database.update ("DELETE FROM transaction");
+	}
 	
 	// ------------------------------ Test Save ------------------------------
 	
 	@Test
-	public void save_Name_98765432_1000 () throws InvalidInputException
+	public void save_Name_98765432_1000 () throws InvalidInputException, SQLException
 	{
-		Customer customer = new Customer ("Name", "98765432", 1000);
+		Customer customer = new Customer ("Hello", "98765432", 1000);
 		assertEquals (customer, repository.save (customer));
 	}
 	
@@ -73,7 +83,7 @@ public class RepositoryTest
 	// ------------------------------ Test findBy ------------------------------
 	
 	@Test
-	public void findByMobile_98765432 () throws AccountNotFoundException, InvalidInputException
+	public void findByMobile_98765432 () throws AccountNotFoundException, InvalidInputException, SQLException
 	{
 		Customer customer = new Customer ("Name", "98765432", 1000);
 		repository.save (customer);

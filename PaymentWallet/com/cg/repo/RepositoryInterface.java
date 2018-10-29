@@ -7,5 +7,6 @@ import com.cg.exceptions.InvalidInputException;
 public interface RepositoryInterface
 {
 	public Customer save (Customer customer) throws InvalidInputException;
+	public Customer update (Customer customer) throws AccountNotFoundException, InvalidInputException;
 	public Customer findByMobile (String mobile) throws AccountNotFoundException, InvalidInputException;
 }

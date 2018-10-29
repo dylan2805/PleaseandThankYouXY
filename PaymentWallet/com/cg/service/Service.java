@@ -8,17 +8,11 @@ import com.cg.beans.Wallet;
 import com.cg.exceptions.AccountNotFoundException;
 import com.cg.exceptions.InsufficientBalanceException;
 import com.cg.exceptions.InvalidInputException;
-import com.cg.repo.Repository;
 import com.cg.repo.RepositoryInterface;
 
 public class Service implements ServiceInterface
 {
 	private RepositoryInterface repository;
-	
-	public Service ()
-	{
-		repository = new Repository ();
-	}
 	
 	public Service (RepositoryInterface repository)
     {
@@ -65,6 +59,7 @@ public class Service implements ServiceInterface
 													   customer.getWallet ().getBalance (), date);
 		
 		getTransactions (mobile).add (transaction);
+		repository.update (customer);
 		
 		return customer;
 	}
@@ -102,6 +97,9 @@ public class Service implements ServiceInterface
 				
 				getTransactions (from).add (fromTransaction);
 				getTransactions (to).add (toTransaction);
+				
+				repository.update (fromCustomer);
+				repository.update (toCustomer);
 				
 				return fromCustomer;
 			}

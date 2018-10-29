@@ -5,16 +5,16 @@ import java.util.Date;
 public class Transaction
 {
 	private int transactionId;
-	private String otherPartyId;
+	private String participant;
 	private double amount;
 	private String description;
 	private double balance;
 	private Date date;
 	
-	public Transaction (int transactionId, String otherPartyId, double amount, String description, double balance, Date date)
+	public Transaction (int transactionId, String participant, double amount, String description, double balance, Date date)
     {
 	    this.transactionId = transactionId;
-	    this.otherPartyId = otherPartyId;
+	    this.participant = participant;
 	    this.amount = amount;
 	    this.description = description;
 	    this.balance = balance;
@@ -26,9 +26,9 @@ public class Transaction
 		return transactionId;
 	}
 
-	public String getOtherPartyId ()
+	public String getParticipant ()
 	{
-		return otherPartyId;
+		return participant;
 	}
 
 	public double getAmount ()
@@ -51,11 +51,10 @@ public class Transaction
 	    return date;
     }
 	
-	@Override
     public String toString ()
     {
-    	return new StringBuilder ().append ("Transaction id  : ").append (transactionId).append ('\n')
-								   .append ("Trasaction      : ").append (otherPartyId).append ('\n')
+    	return new StringBuilder ().append ("Transaction ID  : ").append (transactionId).append ('\n')
+								   .append ("TraNsaction     : ").append (participant).append ('\n')
 								   .append ("Amount          : ").append (amount).append ('\n')
 								   .append ("Description     : ").append (description).append ('\n')
 								   .append ("Date            : ").append (date).append ('\n')

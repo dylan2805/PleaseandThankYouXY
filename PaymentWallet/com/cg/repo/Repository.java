@@ -1,6 +1,5 @@
 package com.cg.repo;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import com.cg.beans.Customer;
@@ -11,15 +10,8 @@ public class Repository implements RepositoryInterface
 {
 	private Map <String, Customer> customers;
 	
-	public Repository ()
-    {
-		customers = new HashMap <String, Customer> ();
-    }
-	
 	public Repository (Map <String, Customer> customers)
     {
-		// Should use this, allows for varying implementation of map
-		// Default constructor forces map to only be HashMap
 	    this.customers = customers;
     }
 
@@ -47,6 +39,13 @@ public class Repository implements RepositoryInterface
 		Customer customer = customers.get (mobile);
 		if (customer == null) throw new AccountNotFoundException ("Account with mobile " + mobile + " not found");
 		
+		return customer;
+	}
+
+	@Override
+	public Customer update (Customer customer) throws AccountNotFoundException, InvalidInputException
+	{
+		save (customer);
 		return customer;
 	}
 }
