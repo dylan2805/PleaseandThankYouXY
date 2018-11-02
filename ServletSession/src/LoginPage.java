@@ -3,6 +3,9 @@ import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,15 +41,13 @@ public class LoginPage extends HttpServlet
 		{
 			Map <String, User> users = (LinkedHashMap <String, User>) getServletContext ().getAttribute ("users");
 			
-			if (users != null)
+			if (users != null)	
 			{
 				User user = users.get (email);
 			
-				if (user != null)
-				{
-					if (user.getPassword ().equals (password)) response.sendRedirect ("lastPage");
-					else printWriter.println ("<p style = 'color:red'>Invalid username / password</p>");
-				}
+				if (user != null) if (user.getPassword ().equals (password)) request.getRequestDispatcher ("lastPage").forward (request, response);
+				
+				printWriter.println ("<p style = 'color:red'>Invalid username / password</p>");
 			}
 		}
 		
