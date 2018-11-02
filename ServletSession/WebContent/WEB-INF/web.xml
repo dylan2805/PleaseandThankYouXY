@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>ServletSession</display-name>
+  <servlet>
+    <servlet-name>LoginPage</servlet-name>
+    <servlet-class>LoginPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginPage</servlet-name>
+    <url-pattern>/loginPage</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>FirstPage</servlet-name>
+    <servlet-class>FirstPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FirstPage</servlet-name>
+    <url-pattern>/firstPage</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>SecondPage</servlet-name>
+    <servlet-class>SecondPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SecondPage</servlet-name>
+    <url-pattern>/secondPage</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ThirdPage</servlet-name>
+    <servlet-class>ThirdPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ThirdPage</servlet-name>
+    <url-pattern>/thirdPage</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LastPage</servlet-name>
+    <servlet-class>LastPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LastPage</servlet-name>
+    <url-pattern>/lastPage</url-pattern>
+  </servlet-mapping>
+</web-app>
